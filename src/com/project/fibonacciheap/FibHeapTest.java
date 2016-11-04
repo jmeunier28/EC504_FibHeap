@@ -1,4 +1,5 @@
 package com.project.fibonacciheap;
+import javax.print.attribute.standard.Fidelity;
 import java.util.*;
 
 /**
@@ -6,24 +7,22 @@ import java.util.*;
  */
 public class FibHeapTest {
 
-        public static void main(String[] args)
-        {
+        public static void main(String[] args) {
 
             System.out.println("FibonacciHeap Test\n\n");
-            FibonacciHeap fh = new FibonacciHeap();
-            int[] arr = new int[15];
+            FibonacciHeap fh = new FibonacciHeap<Integer>();
+            ArrayList<FibHeapNode> arr = new ArrayList<FibHeapNode>();
 
-            for (int i = 0; i<15; i++) {
-                     arr[i] = (int)(Math.random() * 14 + 1); // populate random array
+            for (int i = 15; i > 0; i--) {
+                FibHeapNode node = new FibHeapNode(i, (int) Math.floor(Math.random() * i*200)); // populate random array
+                fh.insert(node);
+                //System.out.print("\n\nThe min is: " + fh.getMin().getValue());
             }
 
-            for (int j = 0; j < arr.length;j++){
-                fh.insert(arr[j]);
-            }
+            System.out.print("\n\nThe min is: " + fh.getMin().getValue());
+            fh.deleteMin();
+            System.out.print("\n\nNew min is: " + fh.getMin().getValue());
 
-            fh.display();
-            fh.emptyHeap();
-            fh.display();
 
         }
 }
