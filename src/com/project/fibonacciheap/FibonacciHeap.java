@@ -175,7 +175,10 @@ public class FibonacciHeap<T> { // generic type
     {
         //Consolidate according to fib heap rules
         ArrayList<FibHeapNode> tempList = new ArrayList<>(); // make temp list to store stuff in
+        int num = (int) Math.floor(Math.log(count));
+        System.out.print(num);
         for (int i = 0; i < min.nodelist().size(); i++){
+        //for(int i =0; i < num; i++) {
             tempList.add(null); // fill new array with null values
         }
 

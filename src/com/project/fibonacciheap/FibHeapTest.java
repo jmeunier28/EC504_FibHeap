@@ -14,7 +14,7 @@ public class FibHeapTest {
 
             for (int i = 15; i > 0; i--)
             {
-                FibHeapNode node = new FibHeapNode(i, (int) Math.floor(Math.random() * i*200)); // populate random array
+                FibHeapNode node = new FibHeapNode((int) Math.floor(Math.random()*i + 10), (int) Math.floor(Math.random() * i*200)); // populate random array
                 fh.insert(node);
                 //System.out.print("\n\nThe min is: " + fh.getMin().getValue());
             }
@@ -26,7 +26,7 @@ public class FibHeapTest {
             FibonacciHeap fh2 = new FibonacciHeap<Integer>();
             for(int i = 15; i < 30; i++)
             {
-                FibHeapNode node = new FibHeapNode(i, (int) Math.floor(Math.random() * i*5));
+                FibHeapNode node = new FibHeapNode((int) Math.floor(Math.random()*i + 10), (int) Math.floor(Math.random() * i*5));
                 fh2.insert(node);
             }
             fh.mergeHeap(fh2); // merge the two heaps
