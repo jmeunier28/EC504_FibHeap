@@ -22,9 +22,8 @@ public class FibonacciHeap<Integer> {
 
     public FibonacciHeap()
     {
-        root = null;
-        count = 0;
         min = null;
+        count = 0;
     }
 
     //check if heap is empty
@@ -36,7 +35,7 @@ public class FibonacciHeap<Integer> {
     //make heap empty
     public void emptyHeap()
     {
-        root = null;
+        min = null;
         count = 0;
     }
 
