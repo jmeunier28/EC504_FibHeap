@@ -11,7 +11,7 @@ public class FibHeapTest {
 
             System.out.println("FibonacciHeap Test\n\n");
             FibonacciHeap fh = new FibonacciHeap<Integer>();
-            ArrayList<FibHeapNode> arr = new ArrayList<FibHeapNode>();
+            ArrayList<FibHeapNode> arr = new ArrayList<>();
 
             for (int i = 15; i > 0; i--) {
                 FibHeapNode node = new FibHeapNode(i, (int) Math.floor(Math.random() * i*200)); // populate random array

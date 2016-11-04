@@ -160,12 +160,14 @@ public class FibonacciHeap<Integer> {
     private void consolidate()
 
             /*
-                need to determine how to take it apart and then put back together via a new
-                Array List ??? no idea how forget how this works slash im tired as fuck
-             */
+                follow steps according to pseudo code on pg 516 of CLRS
+            */
     {
         //Consolidate according to fib heap rules
-        ArrayList<Integer> tempList = new ArrayList<Integer>(); // make temp list to store stuff in
+        ArrayList<FibHeapNode> tempList = new ArrayList<>(); // make temp list to store stuff in
+        for (int i = 0; i < min.nodelist().size(); i++){
+            tempList.add(null); // fill new array with null values
+        }
 
         if (min != null)
         {
@@ -174,28 +176,40 @@ public class FibonacciHeap<Integer> {
                 FibHeapNode x = (FibHeapNode)cur; // store current at x
                 int dx = x.degree; // degree of node in root list
 
-                //compare degrees of nodes in list
-                int dm = min.degree;
-                if (dx == dm) // degrees are same so compare node values
+                while (tempList.get(dx) != null)
                 {
-                    System.out.print("\nDx: " + dx);
-                    System.out.print(" Dm: " + dm);
-
-                    if (java.lang.Integer.parseInt(x.getValue().toString()) <
-                                java.lang.Integer.parseInt(min.getValue().toString()))
+                    FibHeapNode y = tempList.get(dx);
+                    if(java.lang.Integer.parseInt(x.getValue().toString()) >
+                            java.lang.Integer.parseInt(y.getValue().toString()))
                     {
-                        // x is smaller so it becomes parent of next
-                        System.out.print("\nCase min is bigger");
-                        this.makeChild(x,min);
+                        // x is bigger so it becomes child
+                        FibHeapNode temp = x;
+                        x = y;
+                        y = temp; // exchange x and y
                     }
-                    else
+                    this.makeChild(x,y);
+                    tempList.set(dx, null);
+                    dx++;
+                }
+                tempList.set(dx, x);
+
+                min = null;
+
+            } //end iteration of Root List
+
+            for(int i = 0; i < tempList.size();i++)
+            {
+                if (tempList.get(i) != null)
+                {
+                    min = addToRoot(min, tempList.get(i));
+                    if (min == null || java.lang.Integer.parseInt(tempList.get(i).getValue().toString())
+                            < java.lang.Integer.parseInt(min.getValue().toString()))
                     {
-                        System.out.print("\nCase min is still min");
-                        this.makeChild(min,x); // min is smaller so make it parent
+                        min = tempList.get(i); // reassign min pointer
                     }
                 }
-
             }
+
         }
 
 
