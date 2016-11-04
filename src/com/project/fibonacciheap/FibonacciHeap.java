@@ -70,9 +70,9 @@ public class FibonacciHeap<T> { // generic type
 
         //Update the pointer to the minimum node of the heap if necessary
 
-        if (min == null ||
-                java.lang.Integer.parseInt(node.getValue().toString()) <
-                        java.lang.Integer.parseInt(min.getValue().toString()))
+        if (min == null || node.key < min.key)
+                //java.lang.Integer.parseInt(node.getValue().toString()) <
+                //        java.lang.Integer.parseInt(min.getValue().toString()))
         {
             min = node;
         }
@@ -189,8 +189,9 @@ public class FibonacciHeap<T> { // generic type
                 while (tempList.get(dx) != null)
                 {
                     FibHeapNode y = tempList.get(dx);
-                    if(java.lang.Integer.parseInt(x.getValue().toString()) >
-                            java.lang.Integer.parseInt(y.getValue().toString()))
+                    //if(java.lang.Integer.parseInt(x.getValue().toString()) >
+                      //      java.lang.Integer.parseInt(y.getValue().toString()))
+                    if(x.key > y.key)
                     {
                         // x is bigger so it becomes child
                         FibHeapNode temp = x;
@@ -212,8 +213,8 @@ public class FibonacciHeap<T> { // generic type
                 if (tempList.get(i) != null)
                 {
                     min = addToRoot(min, tempList.get(i));
-                    if (min == null || java.lang.Integer.parseInt(tempList.get(i).getValue().toString())
-                            < java.lang.Integer.parseInt(min.getValue().toString()))
+                    if (min == null || tempList.get(i).key < min.key)//java.lang.Integer.parseInt(tempList.get(i).getValue().toString())
+                            //< java.lang.Integer.parseInt(min.getValue().toString()))
                     {
                         min = tempList.get(i); // reassign min pointer
                     }
@@ -245,8 +246,8 @@ public class FibonacciHeap<T> { // generic type
         //modify Fib Heap to decrease key value
         //Call Consolidate
 
-        if( java.lang.Integer.parseInt(newKey.toString()) >
-                java.lang.Integer.parseInt(key.getValue().toString()))
+        if( newKey > key.key)//java.lang.Integer.parseInt(newKey.toString()) >
+              //  java.lang.Integer.parseInt(key.getValue().toString()))
         {
             System.out.print("\nERROR:\nNew Key Greater Than Original");
             return;
@@ -262,8 +263,8 @@ public class FibonacciHeap<T> { // generic type
             its parent and add it to the root list
          */
 
-        if(y != null && java.lang.Integer.parseInt(key.getValue().toString())
-                < java.lang.Integer.parseInt(y.getValue().toString()))
+        if(y != null && key.key < y.key)//java.lang.Integer.parseInt(key.getValue().toString())
+                //< java.lang.Integer.parseInt(y.getValue().toString()))
         {
             //call cut
             //call cascading cut
@@ -311,8 +312,8 @@ public class FibonacciHeap<T> { // generic type
 
         min = addToHeap(min, heap.min);
 
-        if (min == null || (heap.min != null && java.lang.Integer.parseInt(heap.min.getValue().toString()) <
-                java.lang.Integer.parseInt(min.getValue().toString())))
+        if (min == null || (heap.min != null && heap.min.key < min.key))//java.lang.Integer.parseInt(heap.min.getValue().toString()) <
+                //java.lang.Integer.parseInt(min.getValue().toString())))
         {
             min = heap.min; // update min pointer if necessary
         }
