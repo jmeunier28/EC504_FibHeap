@@ -59,7 +59,7 @@ public class FibonacciHeap<T> { // generic type
         node.left = node;
         node.mark = false;
 
-        System.out.print("\nWe inserted:\nkey: " + node.getKey() + ", " + node.getValue());
+        //System.out.print("\nWe inserted:\nkey: " + node.getKey() + ", " + node.getValue());
         /*System.out.print("\nType of: " + node.getValue().toString().getClass().getName());
         System.out.print("\nParseInt: " + java.lang.Integer.parseInt(node.getValue().toString()));*/
 
@@ -305,10 +305,39 @@ public class FibonacciHeap<T> { // generic type
         }
     }
 
-    public void mergeHeap(FibonacciHeap heapOne, FibonacciHeap heapTwo){
+    public void mergeHeap(FibonacciHeap heap){
 
         // method to merge two Fibonacci Heaps together
 
+        min = addToHeap(min, heap.min);
+
+        if (min == null || (heap.min != null && java.lang.Integer.parseInt(heap.min.getValue().toString()) <
+                java.lang.Integer.parseInt(min.getValue().toString())))
+        {
+            min = heap.min; // update min pointer if necessary
+        }
+
+        count += heap.count; // increase num nodes in heap
+
+    }
+
+    public FibHeapNode addToHeap(FibHeapNode node1, FibHeapNode node2)
+    {
+        if (node1 == null){
+            return node2;
+        }
+        else if (node2 == null)
+        {
+            return node1;
+        }
+        else
+        {
+            node1.right.left = node2.left;
+            node2.left.right = node1.right;
+            node2.right = node1;
+            node1.left = node2;
+            return node1;
+        }
     }
 
 

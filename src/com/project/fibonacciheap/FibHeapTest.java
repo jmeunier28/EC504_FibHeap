@@ -18,9 +18,21 @@ public class FibHeapTest {
                 //System.out.print("\n\nThe min is: " + fh.getMin().getValue());
             }
 
-            System.out.print("\n\nThe min is: " + fh.getMin().getKey());
+            System.out.print("\n\nThe min is: " + fh.getMin().getValue());
             fh.deleteMin();
-            System.out.print("\n\nNew min is: " + fh.getMin().getKey());
+            System.out.print("\n\nNew min is: " + fh.getMin().getValue());
+
+            FibonacciHeap fh2 = new FibonacciHeap<Integer>();
+            for(int i = 15; i < 30; i++)
+            {
+                FibHeapNode node = new FibHeapNode(i, (int) Math.floor(Math.random() * i*5));
+                fh2.insert(node);
+            }
+            fh.mergeHeap(fh2); // merge the two heaps
+            System.out.print("\n\nNew min in merged heap: " + fh.getMin().getValue());
+            fh.deleteMin();
+            System.out.print("\n\nNew min in merged heap: " + fh.getMin().getValue());
+
 
         }
 }
