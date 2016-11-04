@@ -14,6 +14,10 @@ import java.lang.Number;
     Follow steps according to pseudo code on pgs 505-519 of CLRS
 */
 
+
+//Data structure is ordered based on Value not based on Key
+    // I think this is wrong but for showing how it works will do it this way for now
+
 public class FibonacciHeap<T> { // generic type
 
     private FibHeapNode root;
@@ -306,5 +310,6 @@ public class FibonacciHeap<T> { // generic type
         // method to merge two Fibonacci Heaps together
 
     }
+
 
 }

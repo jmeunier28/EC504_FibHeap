@@ -21,13 +21,6 @@ public class FibHeapTest {
             System.out.print("\n\nThe min is: " + fh.getMin().getKey());
             fh.deleteMin();
             System.out.print("\n\nNew min is: " + fh.getMin().getKey());
-            for(int i = 0; i < fh.size(); i++)
-            {
-                // do something here idk im tired will come back tmrw
-            }
-
-
-
 
         }
 }
