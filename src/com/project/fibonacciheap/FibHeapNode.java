@@ -23,11 +23,11 @@ public class FibHeapNode<Integer> {
 
         //constructor for new node is Fib Heap
 
-        public FibHeapNode(int key, Integer value)
+        public FibHeapNode(int key)//, Integer value)
         {
 
             this.key = key;
-            this.value = value;
+            //this.value = value;
 
         }
 

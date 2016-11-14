@@ -170,6 +170,22 @@ public class FibonacciHeap<T> { // generic type
         return head;
     }
 
+    //print all paths from node
+
+    public void printPaths(FibHeapNode node)
+    {
+        try {
+            for (Object cur : node.nodelist()) {
+                FibHeapNode x = (FibHeapNode) cur;
+                System.out.print(x.key);
+                this.printPaths(x.child);
+            }
+        }catch (NullPointerException e)
+        {
+            System.out.print("\n\nNode does not exist in Heap");
+        }
+    }
+
     private void consolidate()
 
     {
@@ -177,10 +193,11 @@ public class FibonacciHeap<T> { // generic type
         ArrayList<FibHeapNode> tempList = new ArrayList<>(); // make temp list to store stuff in
         int num = (int) Math.floor(Math.log(count));
         System.out.print(num);
-        for (int i = 0; i < min.nodelist().size(); i++){
+        for (int i = 0; i < this.size(); i++){
         //for(int i =0; i < num; i++) {
             tempList.add(null); // fill new array with null values
         }
+        System.out.print("\nSize of tempList is: " + tempList.size());
 
         if (min != null)
         {
@@ -192,10 +209,12 @@ public class FibonacciHeap<T> { // generic type
                 while (tempList.get(dx) != null)
                 {
                     FibHeapNode y = tempList.get(dx);
+                    //System.out.print("\nValue of tempList node y " + y.getKey());
                     //if(java.lang.Integer.parseInt(x.getValue().toString()) >
                       //      java.lang.Integer.parseInt(y.getValue().toString()))
                     if(x.key > y.key)
                     {
+                        System.out.print("\n" + x.key + " is larger than " + y.key);
                         // x is bigger so it becomes child
                         FibHeapNode temp = x;
                         x = y;
