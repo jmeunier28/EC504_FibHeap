@@ -1,8 +1,6 @@
 """
 Fib Heap implementation
 
-would like to implement better way to iterate that is faster
-
 """
 import math
 
@@ -10,22 +8,22 @@ class FibHeap:
 
 	class Node:
 
-		def __init__(self, data):
+		def __init__(self, data, key):
 			self.data = data
+			self.key = key
 			self.parent = self.child = None
 			self.left = self.right = None
 			self.degree = 0
 			self.mark = False
 
 	def __init__(self):
-
-		self.root = None
+		self.root = None # i think my bug has something to do with not having a point to a root bc i did this the java way
 		self.min = None
 		self.count = 0
-		#print("Creating new FibHeap...")
 
-	def insertNode(self, data):
-		node = self.Node(data)
+
+	def insertNode(self, data, key):
+		node = self.Node(data, key)
 		node.left = node.right = node
 		self.min = self.addToRoot(self.min, node)
 		print(node.data)
@@ -35,6 +33,11 @@ class FibHeap:
 
 		self.count += 1
 
+	def getValue(self, node):
+		return node.data
+
+	def getKey(self, node):
+		return node.key
 
 	def iterateList(self, head):
 		node = stop = head
@@ -47,23 +50,34 @@ class FibHeap:
 			yield node
 			node = node.right
 
+	def search (self, element):
+		current=self.root
+		index=1
+		while current != None:
+		    if current.data == element:
+		        return index
+		    current = current.next_node
+		    index += 1
+		return -1
+
 
 	def isEmpty(self):
-		return root == None
+		return self.min == None
 
 	def emptyHeap(self):
-		min = None
-		count = 0
+		self.min = None
+		self.count = 0
 
 	def findMin(self):
-		return self.min
+		return self.min.data, self.min.key
 
 	def addToRoot(self, head, node):
 
-		if head is None:
-			node.left = node.right = node
+		if head is None: #if root list is empty
+			node.left = node.right = node 
 			return node
 		else:
+			#else connect the node to the head of the root list
 			node.left = head
 			node.right = head.right
 			head.right = node
@@ -82,22 +96,30 @@ class FibHeap:
 		x = self.min #temp var for min
 		if x is not None:
 			if x.child is not None:
-				#print("\n\niterating childlist")
+				print("\n\niterating childlist")
 				#iterate child node list:
 				child = [x for x in self.iterateList(x.child)]
 				for i in range(0, len(child)):
-					#print("Moving kids to root list...")
+					print(child[i].data)
+					print("Moving kids to root list...")
 					self.min = self.addToRoot(self.min, child[i]) #move children to root list
-					x.parent = None
+					child[i].parent = None
 			#print("removing min assigning as rando num")
-			self.min = self.removeNode(self.min, x)
 
 			if(x == x.right):
-				self.emptyHeap() #node is alone in heap... empty it
+				self.count -= 1 
+				self.min = self.removeNode(x, self.min)
+				return x.data, x.key
+				#item is last node
+				#return x.data
+				#self.emptyHeap() #node is alone in heap... empty it 
 			else:
+				self.min = self.removeNode(x, self.min)
 				self.min = x.right # point to other node in root list
 				self.consolidate()
-		self.count -= 1 #decrease node count
+				self.count -= 1 #decrease node count
+				return x.data, x.key
+
 
 	def consolidate(self):
 
@@ -131,7 +153,7 @@ class FibHeap:
 
 
 	def makeChild(self, head, node):
-		self.min = self.removeNode(self.min, node)
+		self.min = self.removeNode(head,node)
 
 		node.parent = head
 		node.left = node.right = node
@@ -141,9 +163,13 @@ class FibHeap:
 		node.mark = False #set mark to false
 
 	def delete(self,node):
-		
+
 		self.decreaseKey(node,-math.inf)
 		self.extractMin()
+
+	# def printHeap(self, node):
+	# 	nodeList = [x for x in self.iterateList(self.root)]
+
 
 
 	def decreaseKey(self, key, newKey):
@@ -163,7 +189,8 @@ class FibHeap:
 			self.min = x
 
 	def cut(self, child, parent):
-		parent.child = removeNode(parent.child, child)
+
+		parent.child = removeNode(parent.child, child) 
 		parent.degree -= 1
 		self.min = self.addToRoot(self.min, child)
 
@@ -182,6 +209,7 @@ class FibHeap:
 				self.cascadingCut(x)
 
 	def mergeHeap(self, heap):
+
 		self.min = self.addToHeap(self.min, heap.min)
 
 		if((self.min is None) or (heap.min is not None and heap.min.data < self.min.data)):
@@ -203,3 +231,4 @@ class FibHeap:
 			node2.right = node1
 			node1.left = node2
 			return node1
+
